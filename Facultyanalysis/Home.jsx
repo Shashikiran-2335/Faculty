@@ -3,10 +3,9 @@ import LogoutComponent from "./Logout";
 import LoginComponent from "./login/Login";
 import WelcomeComponent from "./Welcome";
 import HeaderComponent from "./Header/Header";
-import FotterComponent from "./Footer";
-import TodoComponent from "./Profile";
 import AuthProvider, { useAuth } from './security/AuthContext';
-
+import Profile from './Profileforms/controller';
+import './Home.css';
 function AuthenticationRouter({children})
 {
     const auth=useAuth();
@@ -18,7 +17,7 @@ function AuthenticationRouter({children})
 export default function FacultyAnalysisHome()
 {   return (
 
-        <div className="TodoApp">
+        <div className="FacultyAnalysisApp">
             <AuthProvider>
             <BrowserRouter>
             {/* <HeaderComponent/> */}
@@ -39,7 +38,7 @@ export default function FacultyAnalysisHome()
                     <>
                     <HeaderComponent/> 
                     <AuthenticationRouter>
-                    <TodoComponent/>
+                    <Profile/>
                     </AuthenticationRouter>
                     </>
                     }>  </Route>

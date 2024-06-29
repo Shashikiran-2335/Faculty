@@ -1,11 +1,7 @@
 @charset "UTF-8";
-* {
-  box-sizing: border-box;
-  text-shadow: 0 15px 20px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.20);
-}
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
+.login-container input[type=number]::-webkit-inner-spin-button,
+.login-container input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   appearance: none;
 }
@@ -79,7 +75,7 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 15px 0 20px;
 }
 
-input {
+.login-container input {
   background: #eee;
   padding: 12px 15px;
   margin: 8px 15px;
@@ -90,14 +86,14 @@ input {
   box-shadow: 0 15px 20px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.20);
 }
 
-a {
+.login-container a {
   color: #333;
   font-size: 14px;
   text-decoration: none;
   margin: 15px 0;
 }
 
-.login-total button {
+.login-container button {
   color: #fff;
   background: rgb(0, 0, 0);
   font-size: 12px;
@@ -114,7 +110,7 @@ a {
   box-shadow: 0 15px 20px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.20);
 }
 
-button:active {
+.login-container button:active {
   transform: scale(0.90);
 }
 
