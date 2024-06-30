@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './ResearchAndDevelopment.css';
+import Collapsible from './Collapsible';
 
 const Patents = () => {
   const [patents, setPatents] = useState([{ title: '', agency: '', applicationNo: '', grantDate: '', status: '', score: '' }]);
@@ -316,15 +317,26 @@ const ResearchPublications = () => {
 const ResearchAndDevelopment = () => {
   return (
     <div className='Formcontainer'>
-      <ResearchPublications />
-      <hr/>
-      <ConferencePresentations />
-      <hr />
-      <FundedProjects />
-      <hr />
-      <Certifications />
-      <hr />
-      <Patents />
+      <Collapsible title={'ResearchPublications '}>
+      
+      < ResearchPublications/>
+      </Collapsible>
+      <Collapsible title={'ConferencePresentations '}>
+      
+      < ConferencePresentations/>
+      </Collapsible>
+      <Collapsible title={'FundedProjects'}>
+      
+      < FundedProjects/>
+      </Collapsible>
+      <Collapsible title={'Certifications '}>
+      
+      < Certifications/>
+      </Collapsible>
+      <Collapsible title={'Patents '}>
+      
+      < Patents/>
+      </Collapsible>
     </div>
   );
 };

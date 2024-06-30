@@ -2,6 +2,25 @@
 body.contribution-form-body {
     background-color: #f0f0f0;
 }
+.contribution-form-container table {
+    padding-top: 20px;
+    padding-bottom: 40px;
+    
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+.contribution-form-container th, .contribution-form-container td {
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.contribution-form-container th {
+    background-color: #f2f2f2;
+}
+
+
 
 .contribution-form-container {
     padding: 50px;

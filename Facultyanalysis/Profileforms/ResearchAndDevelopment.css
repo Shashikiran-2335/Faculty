@@ -5,7 +5,7 @@ input[type=number]::-webkit-outer-spin-button {
     appearance: none; 
 }
 .Formcontainer{
-    padding: 50px;
+    padding: 30px;
     background-color: white;
     margin: 20px auto;
     /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
@@ -32,26 +32,26 @@ input[type=number]::-webkit-outer-spin-button {
     background-color: #f0f0f0;
 } */
 
-h3 {
+.Formcontainer h3 {
     text-align: center;
     color: #333;
 }
 
-.table {
+.Formcontainer table {
     padding-top: 20px;
     padding-bottom: 40px;
-    width: 100%;
+    
     margin: 20px auto;
     border-collapse: collapse;
 }
 
-.table th, .table td {
+.Formcontainer th, .Formcontainer td {
     padding: 15px;
     border: 1px solid #ddd;
     text-align: center;
 }
 
-.table th {
+.Formcontainer th {
     background-color: #f2f2f2;
 }
 
