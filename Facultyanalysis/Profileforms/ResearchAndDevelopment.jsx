@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import './ResearchAndDevelopment.css';
 import Collapsible from './Collapsible';
-
+import FileUpload from './UploadFile/uploadFile';
 const Patents = () => {
-  const [patents, setPatents] = useState([{ title: '', agency: '', applicationNo: '', grantDate: '', status: '', score: '' }]);
+  const [patents, setPatents] = useState([{ title: '', agency: '', applicationNo: '', grantDate: '', status: '', score: '', file: null }]);
 
   const addRow = () => {
-    setPatents([...patents, { title: '', agency: '', applicationNo: '', grantDate: '', status: '', score: '' }]);
+    setPatents([...patents, { title: '', agency: '', applicationNo: '', grantDate: '', status: '', score: '', file: null }]);
   };
 
   const removeRow = (index) => {
@@ -17,6 +17,11 @@ const Patents = () => {
   const handleChange = (index, event) => {
     const { name, value } = event.target;
     const updatedPatents = patents.map((pat, i) => i === index ? { ...pat, [name]: value } : pat);
+    setPatents(updatedPatents);
+  };
+
+  const handleFileSelect = (index, file) => {
+    const updatedPatents = patents.map((pat, i) => i === index ? { ...pat, file } : pat);
     setPatents(updatedPatents);
   };
 
@@ -38,6 +43,7 @@ const Patents = () => {
               <th>Grant Date</th>
               <th>Status (Published/Granted)</th>
               <th>Score (Max. 10)</th>
+              <th>Upload(.pdf)</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -50,6 +56,9 @@ const Patents = () => {
                 <td><input name="grantDate" value={pat.grantDate} onChange={(e) => handleChange(index, e)} placeholder="Enter Grant Date" /></td>
                 <td><input name="status" value={pat.status} onChange={(e) => handleChange(index, e)} placeholder="Enter Status" /></td>
                 <td><input name="score" value={pat.score} onChange={(e) => handleChange(index, e)} placeholder="Enter Score" /></td>
+                <td>
+                  <FileUpload onFileSelect={(file) => handleFileSelect(index, file)} index={index} />
+                </td>
                 <td>
                   <button type="button" className="remove-btn" onClick={() => removeRow(index)}>Remove</button>
                 </td>
@@ -65,7 +74,6 @@ const Patents = () => {
     </div>
   );
 };
-
 const Certifications = () => {
   const [certifications, setCertifications] = useState([{ name: '', organization: '', score: '' }]);
 
@@ -88,6 +96,10 @@ const Certifications = () => {
     event.preventDefault();
     console.log('Submitted Certifications:', certifications);
   };
+  const handleFileSelect = (index, file) => {
+    const updatedPatents = certifications.map((pat, i) => i === index ? { ...pat, file } : pat);
+    setCertifications(updatedPatents);
+  };
 
   return (
     <div className='container-certifications'>
@@ -99,7 +111,9 @@ const Certifications = () => {
               <th>Name of Certification</th>
               <th>Organization</th>
               <th>Score (Max. 5)</th>
-              <th>Actions</th>
+              <th>Upload File
+                (.pdf)</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -108,6 +122,9 @@ const Certifications = () => {
                 <td><input name="name" value={cert.name} onChange={(e) => handleChange(index, e)} placeholder="Enter Certification Name" /></td>
                 <td><input name="organization" value={cert.organization} onChange={(e) => handleChange(index, e)} placeholder="Enter Organization" /></td>
                 <td><input name="score" value={cert.score} onChange={(e) => handleChange(index, e)} placeholder="Enter Score" /></td>
+                <td>
+                  <FileUpload onFileSelect={(file) => handleFileSelect(index, file)} index={index}/>
+                </td>
                 <td>
                   <button type="button" className="remove-btn" onClick={() => removeRow(index)}>Remove</button>
                 </td>
@@ -146,7 +163,10 @@ const FundedProjects = () => {
     event.preventDefault();
     console.log('Submitted Projects:', projects);
   };
-
+  const handleFileSelect = (index, file) => {
+    const updatedPatents = projects.map((pat, i) => i === index ? { ...pat, file } : pat);
+    setProjects(updatedPatents);
+  };
   return (
     <div className='container-projects'>
       <form onSubmit={handleSubmit}>
@@ -159,7 +179,9 @@ const FundedProjects = () => {
               <th>Grant (in Rs.)</th>
               <th>Status (Sanctioned/Submitted)</th>
               <th>Score (Max. 5)</th>
-              <th>Actions</th>
+              <th>Upload File
+              (.pdf)</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -170,6 +192,9 @@ const FundedProjects = () => {
                 <td><input name="grant" value={proj.grant} onChange={(e) => handleChange(index, e)} placeholder="Enter Grant Amount" /></td>
                 <td><input name="status" value={proj.status} onChange={(e) => handleChange(index, e)} placeholder="Enter Status" /></td>
                 <td><input name="score" value={proj.score} onChange={(e) => handleChange(index, e)} placeholder="Enter Score" /></td>
+                <td>
+                  <FileUpload onFileSelect={(file) => handleFileSelect(index, file)} index={index}/>
+                </td>
                 <td>
                   <button type="button" className="remove-btn" onClick={() => removeRow(index)}>Remove</button>
                 </td>
@@ -209,6 +234,10 @@ const ConferencePresentations = () => {
     console.log('Submitted Presentations:', presentations);
   };
 
+  const handleFileSelect = (index, file) => {
+    const updatedPatents = presentations.map((pat, i) => i === index ? { ...pat, file } : pat);
+    setPresentations(updatedPatents);
+  };
   return (
     <div className='container-projects'>
       <form onSubmit={handleSubmit}>
@@ -222,7 +251,9 @@ const ConferencePresentations = () => {
               <th>Indexed in?</th>
               <th>No. of Days</th>
               <th>Score (Max. 5)</th>
-              <th>Actions</th>
+              <th>Upload File
+              (.pdf)</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -234,6 +265,9 @@ const ConferencePresentations = () => {
                 <td><input name="indexed" value={pres.indexed} onChange={(e) => handleChange(index, e)} placeholder="Indexed in?" /></td>
                 <td><input name="days" value={pres.days} onChange={(e) => handleChange(index, e)} placeholder="Enter Number of Days" /></td>
                 <td><input name="score" value={pres.score} onChange={(e) => handleChange(index, e)} placeholder="Enter Score" /></td>
+                <td>
+                  <FileUpload onFileSelect={(file) => handleFileSelect(index, file)} index={index}/>
+                </td>
                 <td>
                   <button type="button" className="remove-btn" onClick={() => removeRow(index)}>Remove</button>
                 </td>
@@ -273,6 +307,10 @@ const ResearchPublications = () => {
     console.log('Submitted Publications:', publications);
   };
 
+  const handleFileSelect = (index, file) => {
+    const updatedPatents = publications.map((pat, i) => i === index ? { ...pat, file } : pat);
+    setPublications(updatedPatents);
+  };
   return (
     <div className='container-projects'>
       <form onSubmit={handleSubmit}>
@@ -286,7 +324,9 @@ const ResearchPublications = () => {
               <th>Date of Publication</th>
               <th>1st or Corresponding Author?</th>
               <th>API Score (Max.15)</th>
-              <th>Actions</th>
+              <th>Upload File
+              (.pdf)</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -298,6 +338,9 @@ const ResearchPublications = () => {
                 <td><input name="date" value={pub.date} onChange={(e) => handleChange(index, e)} placeholder="Publication Date" /></td>
                 <td><input name="author" value={pub.author} onChange={(e) => handleChange(index, e)} placeholder="1st or Corresponding Author?" /></td>
                 <td><input name="score" value={pub.score} onChange={(e) => handleChange(index, e)} placeholder="API Score (Max. 15)" /></td>
+                <td>
+                  <FileUpload onFileSelect={(file) => handleFileSelect(index, file)} index={index} />
+                </td>
                 <td>
                   <button type="button" className="remove-btn" onClick={() => removeRow(index)}>Remove</button>
                 </td>
