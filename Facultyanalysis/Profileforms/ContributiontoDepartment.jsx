@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './ContributiontoSchoolForm.css';
+import Dropdown from './Dropdown/Dropdown';
 
 const ContributiontoDepartmentForm = () => {
   const [contributions, setContributions] = useState([{ responsibility: '', contribution: '', score: '' }]);
@@ -43,13 +44,53 @@ const ContributiontoDepartmentForm = () => {
             {contributions.map((contribution, index) => (
               <tr key={index}>
                 <td>
-                  <input
-                    type="text"
-                    name="responsibility"
-                    value={contribution.responsibility}
-                    placeholder='Enter Responsibility / Activity'
-                    onChange={(event) => handleInputChange(index, event)}
+                  <Dropdown items={[' Class in-charge',
+                    ' Timetable in-charge',
+                    ' sponsored projects',
+                    '  departmental newsletter',
+                    '  Workshops',
+                    '  conferences',
+                    '  seminars',
+                    '  FDP',
+                    '  Hack-a-thon',
+                    ' NAAC Work',
+                    ' NBA Work',
+                    ' NIRF work',
+                    ' UGC Work',
+                  ]}
+                  placeholder={'Enter Responsibility/Activity organized '}
+                  value={contribution.responsibility}
+                //onChange={handleInputChange(index)}
+                contributions={contributions}
+                indexvalue={index}
                   />
+                  {/* <input
+                    list={`responsibilities-${1000+index}`}
+                    name="responsibility"
+                    placeholder="Enter Responsibility/Activity organized"
+                    value={contribution.responsibility}
+                    onChange={(event) => handleInputChange(index, event)}
+                    className="input-field"
+                  /> */}
+                  {/* <datalist id={`responsibilities-${1000+index}`}>
+                    {[
+                     ' Class in-charge',
+                    ' Timetable in-charge',
+                    ' sponsored projects',
+                    '  departmental newsletter',
+                    '  Workshops',
+                    '  conferences',
+                    '  seminars',
+                    '  FDP',
+                    '  Hack-a-thon',
+                    ' NAAC Work',
+                    ' NBA Work',
+                    ' NIRF work',
+                    ' UGC Work',
+                    ].map((item, idx) => (
+                      <option key={idx} value={item} />
+                    ))}
+                  </datalist> */}
                 </td>
                 <td>
                   <input

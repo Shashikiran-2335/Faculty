@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import './ContributiontoSchoolForm.css';
-
+import Dropdown from './Dropdown/Dropdown';
 const ContributionForm = () => {
   const [contributions, setContributions] = useState([{ responsibility: '', contribution: '', score: '' }]);
 
   const handleInputChange = (index, event) => {
+   //console.log("heh");
     const { name, value } = event.target;
     const newContributions = [...contributions];
     newContributions[index][name] = value;
     setContributions(newContributions);
+    console.log(newContributions);
   };
 
   const handleAddRow = () => {
@@ -43,13 +45,33 @@ const ContributionForm = () => {
             {contributions.map((contribution, index) => (
               <tr key={index}>
                 <td>
-                  <input
-                    type="text"
-                    name="responsibility"
-                    value={contribution.responsibility}
-                    placeholder='Enter Responsibility / Activity'
-                    onChange={(event) => handleInputChange(index, event)}
-                  />
+                <Dropdown items={['Head of Department', ' Training and Placement Officer', 'Coordinator', 'Committee member', 'Examination Officer', 'Warden']}
+                value={contribution.responsibility}
+                //onChange={handleInputChange(index)}
+                contributions={contributions}
+                indexvalue={index}
+                placeholder={'Enter Responsibility/Activity organized '}
+                />
+                  {/* <input
+                  list={`responsibilities-${index}`}
+                  name="responsibility"
+                  placeholder="Enter Responsibility/Activity organized"
+                  value={contribution.responsibility}
+                  onChange={(event) => handleInputChange(index, event)}
+                  className="input-field"
+                />
+                <datalist id={`responsibilities-${index}`}>
+                  {[
+                    'Head of Department',
+                    'Training and Placement Officer',
+                    'Coordinator',
+                    'Committee member',
+                    'Examination Officer',
+                    'Warden',
+                  ].map((item, idx) => (
+                    <option key={idx} value={item} />
+                  ))}
+                </datalist> */}
                 </td>
                 <td>
                   <input

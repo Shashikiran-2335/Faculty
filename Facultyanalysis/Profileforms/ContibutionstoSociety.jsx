@@ -1,9 +1,11 @@
 
 import React, { useState } from 'react';
 import './ContributiontoSchoolForm.css';
+import Dropdown from './Dropdown/Dropdown';
+import FileUpload from './UploadFile/uploadFile';
 
 const ContributiontoSociteyForm = () => {
-  const [contributions, setContributions] = useState([{ responsibility: '', contribution: '', score: '' }]);
+  const [contributions, setContributions] = useState([{ responsibility: '', contribution: '',isdone: '',file: null, score: '' }]);
 
   const handleInputChange = (index, event) => {
     const { name, value } = event.target;
@@ -26,7 +28,10 @@ const ContributiontoSociteyForm = () => {
     // Add your submit logic here
     console.log(contributions);
   };
-
+  const handleFileSelect = (index, file) => {
+    const updatedContributions = contributions.map((pat, i) => i === index ? { ...pat, file } : pat);
+    setContributions(updatedContributions);
+  };
   return (
     <div className="contribution-form-container">
       <h3>Contribution to Society/Academic/Co-Curricular/Extra Curricular/Social Contribution/NSS/NCC</h3>
@@ -36,6 +41,8 @@ const ContributiontoSociteyForm = () => {
             <tr>
               <th>Responsibilities assigned</th>
               <th>Contribution(s)</th>
+              <th>Is Completed?</th>
+              <th>Upload</th>
               <th>Score</th>
               <th>Actions</th>
             </tr>
@@ -62,12 +69,17 @@ const ContributiontoSociteyForm = () => {
                   />
                 </td>
                 <td>
-                  <input
-                    type="number"
-                    name="score"
-                    value={contribution.score}
-                    onChange={(event) => handleInputChange(index, event)}
+                  <Dropdown items={["Yes","No"]} placeholder={''}
+                   value={contribution.responsibility}
+                   contributions={contributions}
+                   indexvalue={index}
                   />
+                </td>
+                <td>
+                  <FileUpload onFileSelect={(file) => handleFileSelect(index, file)} index={600+index} />
+                </td>
+                <td>
+                  <input/>
                 </td>
                 <td>
                   <button type="button" className='Action-btns' onClick={() => handleRemoveRow(index)}>Remove</button>

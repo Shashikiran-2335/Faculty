@@ -1,15 +1,17 @@
 import './FacultyInformationForm.css';
 import React, { useState } from 'react';
+import { useAuth } from '../security/AuthContext';
 
-export default function  FacultyInformationForm  ()  {
+export default function FacultyInformationForm() {
+    const authContext = useAuth();
     const [facultyData, setFacultyData] = useState({
         name: '',
         department: '',
-        teachingexperience: '',
-        industryexperience: '',
+        teachingexperience: 0,
+        industryexperience: 0,
         joining_date: '',
         designation: '',
-        total_experience: ''
+        total_experience: 0
     });
 
     const handleInputChange = (e) => {
@@ -20,10 +22,18 @@ export default function  FacultyInformationForm  ()  {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle form submission
-        console.log(facultyData);
+        const data = {
+            nameoftheFaculty: facultyData.name,
+            joiningdate: facultyData.joining_date,
+            department: facultyData.department,
+            designation: facultyData.designation,
+            teachingExperience: facultyData.teachingexperience,
+            industryExperience: facultyData.industryexperience,
+            totalExperience: facultyData.total_experience
+        };
+        authContext.UpdateFacultyInformationFormHandle(data);
     };
 
     return (
@@ -31,47 +41,51 @@ export default function  FacultyInformationForm  ()  {
             <h2>Faculty Information Form</h2>
             <form onSubmit={handleSubmit}>
                 <table>
-                    <tr>
-                        <th colspan="2">Faculty Information</th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div className="form-group">
-                                <label htmlFor="name">Name of the Faculty:</label>
-                                <input type="text" id="name" name="name" value={facultyData.name} onChange={handleInputChange} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="department">Department:</label>
-                                <input type="text" id="department" name="department" value={facultyData.department} onChange={handleInputChange} />
-                            </div>
-                            <div className="form-group">
-                                <div id="teaching_industry_experience">
-                                    <div id="teaching_experience">
-                                        <label htmlFor="teachingexperience">Teaching:</label>
-                                        <input type="number" name="teachingexperience" value={facultyData.teachingexperience} onChange={handleInputChange} placeholder="Teaching" />
-                                    </div>
-                                    <div id="industry_experience">
-                                        <label htmlFor="industryexperience">Industry:</label>
-                                        <input type="number" name="industryexperience" value={facultyData.industryexperience} onChange={handleInputChange} placeholder="Industry" />
+                    <thead>
+                        <tr>
+                            <th colSpan="2">Faculty Information</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div className="form-group">
+                                    <label htmlFor="name">Name of the Faculty:</label>
+                                    <input type="text" id="name" name="name" value={facultyData.name} onChange={handleInputChange} />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="department">Department:</label>
+                                    <input type="text" id="department" name="department" value={facultyData.department} onChange={handleInputChange} />
+                                </div>
+                                <div className="form-group">
+                                    <div id="teaching_industry_experience">
+                                        <div id="teaching_experience">
+                                            <label htmlFor="teachingexperience">Teaching:</label>
+                                            <input type="number" name="teachingexperience" value={facultyData.teachingexperience} onChange={handleInputChange} placeholder="Teaching" />
+                                        </div>
+                                        <div id="industry_experience">
+                                            <label htmlFor="industryexperience">Industry:</label>
+                                            <input type="number" name="industryexperience" value={facultyData.industryexperience} onChange={handleInputChange} placeholder="Industry" />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div className="form-group">
-                                <label htmlFor="joining_date">Date of Joining:</label>
-                                <input type="date" id="joining_date" name="joining_date" value={facultyData.joining_date} onChange={handleInputChange} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="designation">Designation:</label>
-                                <input type="text" id="designation" name="designation" value={facultyData.designation} onChange={handleInputChange} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="total_experience">Total experience (Years):</label>
-                                <input type="number" id="total_experience" name="total_experience" value={facultyData.total_experience} onChange={handleInputChange} />
-                            </div>
-                        </td>
-                    </tr>
+                            </td>
+                            <td>
+                                <div className="form-group">
+                                    <label htmlFor="joining_date">Date of Joining:</label>
+                                    <input type="date" id="joining_date" name="joining_date" value={facultyData.joining_date} onChange={handleInputChange} />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="designation">Designation:</label>
+                                    <input type="text" id="designation" name="designation" value={facultyData.designation} onChange={handleInputChange} />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="total_experience">Total experience (Years):</label>
+                                    <input type="number" id="total_experience" name="total_experience" value={facultyData.total_experience} onChange={handleInputChange} />
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
                 <div className="form-group">
                     <input type="submit" value="Submit" />
@@ -80,3 +94,18 @@ export default function  FacultyInformationForm  ()  {
         </div>
     );
 }
+
+        // try {
+        //     const response = await axios.post("http://localhost:8080/updateFacultyInformationForm", {
+        //         nameoftheFaculty: facultyData.name,
+        //         joiningdate: facultyData.joining_date,
+        //         department: facultyData.department,
+        //         designation: facultyData.designation,
+        //         teachingExperience: facultyData.teachingexperience,
+        //         industryExperience: facultyData.industryexperience,
+        //         totalExperience: facultyData.total_experience
+        //     });
+        //     console.log(response.data);
+        // } catch (error) {
+        //     console.error("There was an error submitting the form:", error);
+        // }

@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import './ResearchAndDevelopment.css';
 import Collapsible from './Collapsible';
 import FileUpload from './UploadFile/uploadFile';
-const Patents = () => {
+import { updateresearchDevelopmentPatents } from '../ApiClinent/BasicAuthenicationSerivce';
+import { updateresearchDevelopmentCertifications } from '../ApiClinent/BasicAuthenicationSerivce';
+import axios from 'axios';
+export const Patents = () => {
   const [patents, setPatents] = useState([{ title: '', agency: '', applicationNo: '', grantDate: '', status: '', score: '', file: null }]);
 
   const addRow = () => {
@@ -25,9 +28,11 @@ const Patents = () => {
     setPatents(updatedPatents);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event)  => {
     event.preventDefault();
     console.log('Submitted Patents:', patents);
+    updateresearchDevelopmentPatents(patents);
+
   };
 
   return (
@@ -57,7 +62,7 @@ const Patents = () => {
                 <td><input name="status" value={pat.status} onChange={(e) => handleChange(index, e)} placeholder="Enter Status" /></td>
                 <td><input name="score" value={pat.score} onChange={(e) => handleChange(index, e)} placeholder="Enter Score" /></td>
                 <td>
-                  <FileUpload onFileSelect={(file) => handleFileSelect(index, file)} index={index} />
+                  <FileUpload onFileSelect={(file) => handleFileSelect(index, file)} index={500+index} />
                 </td>
                 <td>
                   <button type="button" className="remove-btn" onClick={() => removeRow(index)}>Remove</button>
@@ -75,10 +80,10 @@ const Patents = () => {
   );
 };
 const Certifications = () => {
-  const [certifications, setCertifications] = useState([{ name: '', organization: '', score: '' }]);
+  const [certifications, setCertifications] = useState([{ name: '', organization: '',file:null, score: '' }]);
 
   const addRow = () => {
-    setCertifications([...certifications, { name: '', organization: '', score: '' }]);
+    setCertifications([...certifications, { name: '', organization: '',file:null, score: '' }]);
   };
 
   const removeRow = (index) => {
@@ -94,6 +99,7 @@ const Certifications = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    updateresearchDevelopmentCertifications(certifications);
     console.log('Submitted Certifications:', certifications);
   };
   const handleFileSelect = (index, file) => {
@@ -123,7 +129,7 @@ const Certifications = () => {
                 <td><input name="organization" value={cert.organization} onChange={(e) => handleChange(index, e)} placeholder="Enter Organization" /></td>
                 <td><input name="score" value={cert.score} onChange={(e) => handleChange(index, e)} placeholder="Enter Score" /></td>
                 <td>
-                  <FileUpload onFileSelect={(file) => handleFileSelect(index, file)} index={index}/>
+                  <FileUpload onFileSelect={(file) => handleFileSelect(index, file)} index={400+index}/>
                 </td>
                 <td>
                   <button type="button" className="remove-btn" onClick={() => removeRow(index)}>Remove</button>
@@ -193,7 +199,7 @@ const FundedProjects = () => {
                 <td><input name="status" value={proj.status} onChange={(e) => handleChange(index, e)} placeholder="Enter Status" /></td>
                 <td><input name="score" value={proj.score} onChange={(e) => handleChange(index, e)} placeholder="Enter Score" /></td>
                 <td>
-                  <FileUpload onFileSelect={(file) => handleFileSelect(index, file)} index={index}/>
+                  <FileUpload onFileSelect={(file) => handleFileSelect(index, file)} index={100+index}/>
                 </td>
                 <td>
                   <button type="button" className="remove-btn" onClick={() => removeRow(index)}>Remove</button>
@@ -266,7 +272,7 @@ const ConferencePresentations = () => {
                 <td><input name="days" value={pres.days} onChange={(e) => handleChange(index, e)} placeholder="Enter Number of Days" /></td>
                 <td><input name="score" value={pres.score} onChange={(e) => handleChange(index, e)} placeholder="Enter Score" /></td>
                 <td>
-                  <FileUpload onFileSelect={(file) => handleFileSelect(index, file)} index={index}/>
+                  <FileUpload onFileSelect={(file) => handleFileSelect(index, file)} index={200+index}/>
                 </td>
                 <td>
                   <button type="button" className="remove-btn" onClick={() => removeRow(index)}>Remove</button>
@@ -339,7 +345,7 @@ const ResearchPublications = () => {
                 <td><input name="author" value={pub.author} onChange={(e) => handleChange(index, e)} placeholder="1st or Corresponding Author?" /></td>
                 <td><input name="score" value={pub.score} onChange={(e) => handleChange(index, e)} placeholder="API Score (Max. 15)" /></td>
                 <td>
-                  <FileUpload onFileSelect={(file) => handleFileSelect(index, file)} index={index} />
+                  <FileUpload onFileSelect={(file) => handleFileSelect(index, file)} index={300+index} />
                 </td>
                 <td>
                   <button type="button" className="remove-btn" onClick={() => removeRow(index)}>Remove</button>
